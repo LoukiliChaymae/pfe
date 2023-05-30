@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet,SafeAreaView,FlatList, Text, View, Modal, TouchableOpacity} from 'react-native';
+import { StyleSheet ,FlatList, Text, View, TouchableOpacity} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from './components/groupeCard.js';
@@ -38,48 +40,50 @@ export default function App() {
   };
   
   return (
-    <SafeAreaView style={[styles.container, isViewVisible && styles.overlayVisible]}>
-      <View style={styles.headerContainer}>
-        <Icon style={styles.header} name="group"></Icon>
-        <Text style={styles.header}>Groups</Text></View>
-      <FlatList
-        data={DATA}
-        renderItem={({group}) => <Card group={group} />}
-        keyExtractor={item => item.id}
-      />
-       
-
-
-      <TouchableOpacity
-          style={styles.buttonAddgroup}
-          onPress={handlePress}
-      >
-          <Text><MaterialIcons style={styles.addgroupicone} name="group-add"></MaterialIcons></Text>
-      </TouchableOpacity>
-      {isViewVisible && (
-        <AddGroup handlePress={handlePress} />
-      )}
-    </SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }} >
+        <View  style={{ flex: 1 }}>
+          <View style={styles.headerContainer}>
+            <Icon style={styles.header} name="group"></Icon>
+            <Text style={styles.header}>Groups</Text>
+          </View>
+          <FlatList
+            data={DATA}
+            renderItem={({group}) => <Card group={group} />}
+            keyExtractor={item => item.id}
+        />
+          <TouchableOpacity
+              style={styles.buttonAddgroup}
+              onPress={handlePress}
+          >
+              <Text><MaterialIcons style={styles.addgroupicone} name="group-add"></MaterialIcons></Text>
+          </TouchableOpacity>
+            
+        {isViewVisible && (
+            <AddGroup handlePress={handlePress} />
+          )}
+        </View>
+      </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    backgroundColor:'#FBF9F7',
-    
-    
+   // flex: 1,
+    // marginTop: StatusBar.currentHeight || 0,
   },
   headerContainer:{
+
+    paddingVertical:10,
+    paddingHorizontal:20,
+    height:60,
     flexDirection:'row', 
-    alignItems:'center'
+    alignItems:'center',
+    gap:10,
   },
   header:{
     color:'#212A37',
     fontSize:30,
     fontWeight:'bold',
-    margin:10,
   },
 
   item: {
@@ -96,20 +100,22 @@ const styles = StyleSheet.create({
     borderColor: '#FF6238',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 70,
+    width: 60,
+    height: 60,
     position: 'absolute',
-    bottom: 10,
+    bottom: 50,
     right: 20,
-    height: 70,
     backgroundColor: '#FF6238',
     borderRadius: 20,
   },
+
   addgroupicone:{
     color:'#212A37',
     fontSize:40,
     fontWeight:'bold',
     margin:10,
   },
+
   overlayVisible:{
     opacity:1,
   }
