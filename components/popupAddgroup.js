@@ -3,44 +3,81 @@ import Modal from 'react-native-modal';
 import React, { useState } from 'react';
 import  Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MultiSelect from 'react-native-multiple-select';
+
+
+import SelectBox from 'react-native-multi-selectbox'
+ import { xorBy } from 'lodash'
+import { TextInput } from 'react-native-paper';
+
+const K_OPTIONS = [
+  {
+    item: 'Juventus',
+    id: 'JUVE',
+  },
+  {
+    item: 'Real Madrid',
+    id: 'RM',
+  },
+  {
+    item: 'Barcelona',
+    id: 'BR',
+  },
+  {
+    item: 'PSG',
+    id: 'PSG',
+  },
+  {
+    item: 'FC Bayern Munich',
+    id: 'FBM',
+  },
+  {
+    item: 'Manchester United FC',
+    id: 'MUN',
+  },
+  {
+    item: 'Manchester City FC',
+    id: 'MCI',
+  },
+  {
+    item: 'Everton FC',
+    id: 'EVE',
+  },
+  {
+    item: 'Tottenham Hotspur FC',
+    id: 'TOT',
+  },
+  {
+    item: 'Chelsea FC',
+    id: 'CHE',
+  },
+  {
+    item: 'Liverpool FC',
+    id: 'LIV',
+  },
+  {
+    item: 'Arsenal FC',
+    id: 'ARS',
+  },
+
+  {
+    item: 'Leicester City FC',
+    id: 'LEI',
+  },
+]
+
+
 export default function AddGroup(props) {
     const handlePress = props.handlePress;
-    const items = [{
-      id: '92iijs7yta',
-      name: 'Ondo'
-    }, {
-      id: 'a0s0a8ssbsd',
-      name: 'Ogun'
-    }, {
-      id: '16hbajsabsd',
-      name: 'Calabar'
-    }, {
-      id: 'nahs75a5sg',
-      name: 'Lagos'
-    }, {
-      id: '667atsas',
-      name: 'Maiduguri'
-    }, {
-      id: 'hsyasajs',
-      name: 'Anambra'
-    }, {
-      id: 'djsjudksjd',
-      name: 'Benue'
-    }, {
-      id: 'sdhyaysdj',
-      name: 'Kaduna'
-    }, {
-      id: 'suudydjsjd',
-      name: 'Abuja'
-      }
-  
-  ];
-  const [selectedItems, setSelectedItems] = useState(false);
-  const onSelectedItemsChange = (selectedItems) => {
-    setSelectedItems(!selectedItems);
-  };
 
+    const [selectedTeams, setSelectedTeams] = useState([])
+
+    function onMultiChange() {
+      return (item) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
+    }
+
+// function onChange() {
+//       return (val) => setSelectedTeam(val)
+//     }
     return(
         
       <SafeAreaView>
@@ -65,31 +102,19 @@ export default function AddGroup(props) {
       </TouchableOpacity>
             
       </View>
-      <MultiSelect
-          hideTags
-          items={items}
-          uniqueKey="id"
-          ref={(component) => { this.multiSelect = component }}
-          // onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={selectedItems}
-          selectText="Pick Items"
-          searchInputPlaceholderText="Search Items..."
-          onChangeInput={ (text)=> console.log(text)}
-          altFontFamily="ProximaNova-Light"
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#CCC"
-          selectedItemIconColor="#CCC"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{ color: '#CCC' }}
-          submitButtonColor="#CCC"
-          submitButtonText="Submit"
-        />
-          </View>
-          
+      <TextInput  style={{marginVertical:10, }} label="Group Name" />
+      <Text style={{ fontSize: 20, paddingBottom: 10 }}>Select Demo</Text>
+      <SelectBox
+        label="Select memebers"
+        options={K_OPTIONS}
+        selectedValues={selectedTeams}
+        onMultiSelect={onMultiChange()}
+        onTapClose={onMultiChange()}
+        isMulti
+      />
+          </View>     
         </Modal>
+
       </SafeAreaView>
     );
  }

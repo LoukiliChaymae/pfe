@@ -7,7 +7,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from './components/groupeCard.js';
 import AddGroup from './components/popupAddgroup.js';
+
+
 export default function App() {
+
   const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -24,16 +27,9 @@ export default function App() {
     {
       id: '58694a0f-3da1-471f-bd96-5571e29d72',
       title: 'Third Item',
-    },
-    {
-      id: '58694a0f-3d-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-    {
-      id: '58694a0fda1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
+    }
   ];
+  
   const [isViewVisible, setViewVisibility] = useState(false);
   const handlePress = () => {
     setViewVisibility(!isViewVisible);
