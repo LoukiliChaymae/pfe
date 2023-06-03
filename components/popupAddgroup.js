@@ -68,13 +68,19 @@ const K_OPTIONS = [
 ]
 
 
-export default function AddGroup(props) {
-    const AddGroupe=()=>{
-      
-    }
-    const handlePress = props.handlePress;
 
-    const [selectedTeams, setSelectedTeams] = useState([])
+export default function AddGroup(props) {
+  const [nom, onChangeNom]=useState("");
+  const [selectedTeams, setSelectedTeams] = useState([]);
+  const AddGroupe=()=>{
+      
+  }
+  const handlePress = props.handlePress;
+
+    
+    useEffect(()=>{
+      console.log(selectedTeams,nom);
+    },[selectedTeams,nom]);
 
     function onMultiChange() {
       return (item) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
@@ -103,8 +109,10 @@ const pickImage = async () => {
   }
 };
 useEffect(()=>{
-  console.log(image);
+  console.log('image ..',image);
 },[image]);
+
+
     return(
         
       <SafeAreaView>
@@ -128,7 +136,7 @@ useEffect(()=>{
               <MaterialIcons style={styles.addButtonIcon} name='add'></MaterialIcons>
             </TouchableOpacity>   
           </View>
-      <TextInput  style={{marginVertical:10, }} label="Group Name" />
+      <TextInput  style={{marginVertical:10, }} label="Group Name" onChangeText={onChangeNom}/>
       <Text style={{ fontSize: 20, paddingBottom: 10 }}>Select Demo</Text>
       <SelectBox
         label="Select memebers"
@@ -137,7 +145,7 @@ useEffect(()=>{
         onMultiSelect={onMultiChange()}
         onTapClose={onMultiChange()}
         isMulti
-      />
+      /> 
       <TouchableOpacity style={styles.confirmAddGroup} onPress={AddGroupe}><Text style={{color:'#212A37',
       fontSize:20,
       fontWeight:'bold',}}>confirmer</Text></TouchableOpacity>
